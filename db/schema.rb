@@ -12,9 +12,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_191_229_031_210) do
+ActiveRecord::Schema.define(version: 20_191_231_060_823) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
+
+  create_table 'interviews', force: :cascade do |t|
+    t.datetime 'schedule'
+    t.boolean 'attendable'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'interviewer_id'
+    t.integer 'interviewee_id'
+  end
 
   create_table 'users', force: :cascade do |t|
     t.string 'name', default: '', null: false
