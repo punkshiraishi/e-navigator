@@ -9,9 +9,9 @@
   </tr>
 <% current_user.interviews.all.each do |interview| %>
   <tr>
-    <td><%= interview.interviewer_id %></td>
+    <td><%= interview.interviewer.name %></td>
     <td><%= interview.schedule.strftime("%Y-%m-%d %H:%M") %></td>
-    <td><%= '' %></td>
+    <td><%= interview.status %></td>
     <td><%= interview.created_at.strftime("%Y-%m-%d %H:%M") %></td>
   </tr>
 <% end %>
