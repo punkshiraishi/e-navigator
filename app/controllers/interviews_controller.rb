@@ -17,6 +17,13 @@ class InterviewsController < ApplicationController
     end
   end
 
+  def destroy
+    @interview = current_user.interviews.find_by(id: params[:id])
+    @interview.destroy
+    flash[:success] = '面接予定を削除しました'
+    redirect_to user_interviews_path(current_user)
+  end
+
   private
 
   def interview_params
