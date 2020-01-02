@@ -17,6 +17,17 @@ class InterviewsController < ApplicationController
     end
   end
 
+  def edit
+    @interview = current_user.interviews.find_by(id: params[:id])
+  end
+
+  def update
+    @interview = Interview.find(params[:id])
+    @interview.update_attributes(interview_params)
+    @interview.update_attributes(attendable: nil)
+    redirect_to user_interviews_path(current_user)
+  end
+
   def destroy
     @interview = current_user.interviews.find_by(id: params[:id])
     @interview.destroy

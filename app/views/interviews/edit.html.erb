@@ -1,0 +1,17 @@
+<h2>面接予約編集</h2>
+
+<%= form_with model: @interview, url: user_interview_path(current_user, @interview), method: :patch, local: true do |f| %>
+  <div class="field">
+    <%= f.label '面接官' %><br />
+    <%= f.collection_select(:interviewer_id, current_user.interviewers, :id, :name, value: @interview.interviewer.name) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :schedule %><br />
+    <%= f.datetime_select :schedule, value: Time.now %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "予約更新" %>
+  </div>
+<% end %>
