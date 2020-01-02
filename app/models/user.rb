@@ -8,4 +8,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   enum gender: { female: 1, male: 2, other: 3 }
+
+  def interviewers
+    User.where.not(id: id)
+  end
 end
