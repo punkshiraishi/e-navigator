@@ -9,6 +9,12 @@
     <%= f.datetime_select :schedule, minute_step: 15, value: yield(:time) %>
   </div>
 
+    <% @interview.errors.full_messages.each do |message| %>
+      <div class="card error">
+        <%= message %>
+      </div>
+    <% end %>
+
   <div class="actions">
     <%= f.submit yield(:submit_label) %>
   </div>
