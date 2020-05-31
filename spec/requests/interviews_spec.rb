@@ -3,14 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe InterviewsController, type: :request do
-  let(:user) { FactoryBot.create(:user) }
-  let(:interviewer) { FactoryBot.create(:user, :interviewer) }
-  let(:another_interviewer) { FactoryBot.create(:user, :interviewer) }
-  let(:interview) { user.interviews.create(params) }
-  let(:params) { { interviewer_id: interviewer.id, schedule: Time.now.tomorrow } }
-  let(:another_params) { { interviewer_id: another_interviewer.id, schedule: Time.now.tomorrow } }
-
   describe 'GET #new' do
+    let(:user) { FactoryBot.create(:user) }
+
     subject { get new_user_interview_path(user), params: { user_id: user.id }; response }
 
     context 'as an authenticated user' do
@@ -24,6 +19,10 @@ RSpec.describe InterviewsController, type: :request do
   end
 
   describe 'POST #create' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:params) { { interviewer_id: interviewer.id, schedule: Time.now.tomorrow } }
+    let(:interviewer) { FactoryBot.create(:user, :interviewer) }
+
     subject { post user_interviews_path(user), params: { interview: params }; response }
 
     context 'as an authenticated user' do
@@ -45,6 +44,8 @@ RSpec.describe InterviewsController, type: :request do
   end
 
   describe 'GET #index' do
+    let(:user) { FactoryBot.create(:user) }
+
     subject { get user_interviews_path(user); response }
 
     context 'as an authenticated user' do
@@ -58,6 +59,11 @@ RSpec.describe InterviewsController, type: :request do
   end
 
   describe 'GET #edit' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:interview) { user.interviews.create(params) }
+    let(:params) { { interviewer_id: interviewer.id, schedule: Time.now.tomorrow } }
+    let(:interviewer) { FactoryBot.create(:user, :interviewer) }
+
     subject { get edit_user_interview_path(user, interview); response }
 
     context 'as an authenticated user' do
@@ -71,7 +77,14 @@ RSpec.describe InterviewsController, type: :request do
   end
 
   describe 'PATCH #update' do
-    subject { patch user_interview_path(user, interview), params: { interview: another_params }; response }
+    let(:user) { FactoryBot.create(:user) }
+    let(:interview) { user.interviews.create(params) }
+    let(:params) { { interviewer_id: interviewer.id, schedule: Time.now.tomorrow } }
+    let(:interviewer) { FactoryBot.create(:user, :interviewer) }
+    let(:another_interviewer) { FactoryBot.create(:user, :interviewer) }
+    let(:edited_params) { { interviewer_id: another_interviewer.id, schedule: Time.now.tomorrow } }
+
+    subject { patch user_interview_path(user, interview), params: { interview: edited_params }; response }
 
     context 'as an authenticated user' do
       before { sign_in user }
@@ -92,6 +105,11 @@ RSpec.describe InterviewsController, type: :request do
   end
 
   describe 'DELETE #destroy' do
+    let(:user) { FactoryBot.create(:user) }
+    let(:interview) { user.interviews.create(params) }
+    let(:params) { { interviewer_id: interviewer.id, schedule: Time.now.tomorrow } }
+    let(:interviewer) { FactoryBot.create(:user, :interviewer) }
+
     subject { delete user_interview_path(user, interview); response }
 
     context 'as an authenticated user' do
