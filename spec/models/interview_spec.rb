@@ -6,6 +6,8 @@ RSpec.describe Interview, type: :model do
   let(:member) { FactoryBot.create(:user, :member) }
   let(:interviewer) { FactoryBot.create(:user, :interviewer) }
 
+  before { travel_to('2020-04-01 00:00') }
+
   it 'is valid with interviewer_id, schedule and schedule_status' do
     interview = member.interviews.build(interviewer_id: interviewer.id, schedule: Time.now.tomorrow)
     expect(interview.valid?).to be_truthy
