@@ -112,7 +112,7 @@ RSpec.describe InterviewsController, type: :request do
       it { is_expected.to have_http_status '302' }
 
       it 'deletes an interview' do
-        expect { subject }.to change(user.interviews, :count).by(0)
+        expect { subject }.to change(user.interviews, :count).by(-1)
       end
     end
 
@@ -120,7 +120,7 @@ RSpec.describe InterviewsController, type: :request do
       it { is_expected.to have_http_status '302' }
 
       it 'does not delete an interview' do
-        expect { subject }.to change(user.interviews, :count).by(1)
+        expect { subject }.to change(user.interviews, :count).by(0)
       end
     end
   end
