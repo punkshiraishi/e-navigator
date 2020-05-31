@@ -59,10 +59,8 @@ RSpec.describe InterviewsController, type: :request do
   end
 
   describe 'GET #edit' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:interview) { user.interviews.create(params) }
-    let(:params) { { interviewer_id: interviewer.id, schedule: Time.now.tomorrow } }
-    let(:interviewer) { FactoryBot.create(:user, :interviewer) }
+    let(:user) { interview.user }
+    let(:interview) { FactoryBot.create(:interview) }
 
     subject { get edit_user_interview_path(user, interview); response }
 
@@ -77,10 +75,9 @@ RSpec.describe InterviewsController, type: :request do
   end
 
   describe 'PATCH #update' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:interview) { user.interviews.create(params) }
-    let(:params) { { interviewer_id: interviewer.id, schedule: Time.now.tomorrow } }
-    let(:interviewer) { FactoryBot.create(:user, :interviewer) }
+    let(:user) { interview.user }
+    let(:interview) { FactoryBot.create(:interview) }
+    let(:interviewer) { interview.interviewer }
     let(:another_interviewer) { FactoryBot.create(:user, :interviewer) }
     let(:edited_params) { { interviewer_id: another_interviewer.id, schedule: Time.now.tomorrow } }
 
@@ -105,10 +102,8 @@ RSpec.describe InterviewsController, type: :request do
   end
 
   describe 'DELETE #destroy' do
-    let(:user) { FactoryBot.create(:user) }
-    let(:interview) { user.interviews.create(params) }
-    let(:params) { { interviewer_id: interviewer.id, schedule: Time.now.tomorrow } }
-    let(:interviewer) { FactoryBot.create(:user, :interviewer) }
+    let(:user) { interview.user }
+    let(:interview) { FactoryBot.create(:interview) }
 
     subject { delete user_interview_path(user, interview); response }
 
